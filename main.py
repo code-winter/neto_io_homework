@@ -35,6 +35,7 @@ path = 'recipes.txt'
 encoding_type = 'utf-8'
 mode = 'r'
 cook_book = get_recipes_dict(path, mode, encoding_type)
+print(cook_book)
 
 
 
