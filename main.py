@@ -1,4 +1,4 @@
-def get_recipes_dict(filename, mode, encode):
+def get_recipes_dict(filename, mode_type, encode):
     recipe_dict = dict()
     dish = str()
     ingredient = str()
@@ -6,7 +6,7 @@ def get_recipes_dict(filename, mode, encode):
     amount = str()
     measure = str()
     buffer_list = list()
-    with open(filename, mode, encoding=encode) as file:
+    with open(filename, mode_type, encoding=encode) as file:
         for line in file:
             dish = line.strip()
             amount = int(file.readline())
