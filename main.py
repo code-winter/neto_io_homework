@@ -1,4 +1,12 @@
 def get_recipes_dict(filename, mode_type, encode):
+    """
+    Gets formatted nested dictionary from file
+
+    :param filename: name of file
+    :param mode_type: parameter for mode
+    :param encode: utf-8 encoding
+    :return: returns dictionary with recipes
+    """
     with open(filename, mode_type, encoding=encode) as file:
         recipe_dict = dict()
         for line in file:
@@ -16,6 +24,14 @@ def get_recipes_dict(filename, mode_type, encode):
 
 
 def get_shop_list_by_dishes(cook_dict, dishes, person_count):
+    """
+    Gets a dictionary from recipes dictionary and changes number of ingredients
+
+    :param cook_dict: recipes dict
+    :param dishes: list of dish names
+    :param person_count: amount of servings
+    :return: returns formatted dictionary with modified amounts of quantity
+    """
     temp_dict = dict()
     for dish_name in dishes:
         for dish_type, ingredient_list in cook_dict.items():
@@ -32,6 +48,12 @@ def get_shop_list_by_dishes(cook_dict, dishes, person_count):
 
 
 def count_lines(filename):
+    """
+    Counts lines in a file
+
+    :param filename: file name in str format
+    :return: returns tuple with (text_name:number_of_lines)
+    """
     with open(filename, 'r', encoding='utf-8') as file:
         lines_count = int()
         for line in file:
@@ -41,12 +63,26 @@ def count_lines(filename):
 
 
 def get_text(filename):
+    """
+    Reads text from file and returns it
+
+    :param filename: file name in str format
+    :return: returns list with text
+    """
     with open(filename, 'r', encoding='utf-8') as file:
         file_text = file.read()
     return file_text
 
 
 def merge_files(filename_list, merged_file, encode):
+    """
+    Merges files in another file from least lines in a file to most
+
+    :param filename_list: list with names of files that needs to be merged
+    :param merged_file: file in which text should be written
+    :param encode: utf-8 encoding
+    :return: nothing
+    """
     lines_counter = list()
     for file_name in filename_list:
         lines_counter.append(count_lines(file_name))
@@ -63,13 +99,13 @@ path = 'recipes.txt'
 encoding_type = 'utf-8'
 mode = 'r'
 list_of_dishes = ['Омлет', 'Запеченный картофель']
-number_of_persons = 3
+servings= 3
 file_list = ['text_1.txt', 'text_2.txt', 'text_3.txt']
 result = 'spliced_text.txt'
 
 cook_book = get_recipes_dict(path, mode, encoding_type)
 print(cook_book)
-shopping_list = get_shop_list_by_dishes(cook_book, list_of_dishes, number_of_persons)
+shopping_list = get_shop_list_by_dishes(cook_book, list_of_dishes, servings)
 print(shopping_list)
 merge_files(file_list, result, encoding_type)
 print('Файлы соединены.')
