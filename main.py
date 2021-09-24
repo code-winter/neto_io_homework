@@ -31,13 +31,48 @@ def get_shop_list_by_dishes(cook_dict, dishes, person_count):
     return temp_dict
 
 
+def count_lines(filename):
+    with open(filename, 'r', encoding='utf-8') as file:
+        lines_count = int()
+        for line in file:
+            lines_count += 1
+        info_tuple = (filename, lines_count)
+    return info_tuple
+
+
+def get_text(filename):
+    with open(filename, 'r', encoding='utf-8') as file:
+        file_text = file.read()
+    return file_text
+
+
+def merge_files(filename_list, merged_file, encode):
+    lines_counter = list()
+    for file_name in filename_list:
+        lines_counter.append(count_lines(file_name))
+    lines_counter.sort(key=lambda item: item[-1])
+    with open(merged_file, 'w', encoding=encode) as file:
+        for doc in lines_counter:
+            file.write(f'{doc[0]}\n')
+            file.write(f'{doc[1]}\n')
+            text = get_text(doc[0])
+            file.write(f'{text}\n\n')
+
+
 path = 'recipes.txt'
 encoding_type = 'utf-8'
 mode = 'r'
+list_of_dishes = ['Омлет', 'Запеченный картофель']
+number_of_persons = 3
+file_list = ['text_1.txt', 'text_2.txt', 'text_3.txt']
+result = 'spliced_text.txt'
+
 cook_book = get_recipes_dict(path, mode, encoding_type)
 print(cook_book)
-test = get_shop_list_by_dishes(cook_book, ['Омлет', 'Запеченный картофель'], 3)
-print(test)
+shopping_list = get_shop_list_by_dishes(cook_book, list_of_dishes, number_of_persons)
+print(shopping_list)
+merge_files(file_list, result, encoding_type)
+print('Файлы соединены.')
 
 
 
